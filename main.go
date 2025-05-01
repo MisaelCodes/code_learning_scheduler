@@ -8,6 +8,18 @@ import (
 	"golang.org/x/term"
 )
 
+
+type Task struct{
+    title string
+    description string
+//    hour time.DateTime
+//   action *Action
+}
+
+type TaskList struct{
+    tasks []Task
+}
+
 func main() {
 	// start with the menu options
 	menuOptions := []string{

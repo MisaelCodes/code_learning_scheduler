@@ -13,11 +13,12 @@ if a file was given.
 When all tasks are finished it asks you if you want different task for tomorrow.
 you can add breaks to it to be set at a certain time.
 
-// I need to figure out how to reproduce audio
-// I need to figure out how to connect a sqllite
-// I need to create test
-// I need to interact with the command line for selecting things
-// Avoid chatgpt and AI in general.
+[*] I need to interact with the command line for control, color and text insertion
+[ ] I need to create the tasks and tasks list logic
+[ ] I need to figure out how to reproduce audio
+[ ] I need to figure out how to connect a sqllite
+[ ] I need to create test
+[ ] Avoid chatgpt and AI in general.
 
 
 First Stage
