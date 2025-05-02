@@ -10,16 +10,6 @@ import (
 )
 
 
-type Task struct{
-    title string
-    description string
-//    hour time.DateTime
-//   action *Action
-}
-
-type TaskList struct{
-    tasks []Task
-}
 
 func main() {
 	// start with the menu options
@@ -39,7 +29,7 @@ func main() {
 	prompt := "Move with 'j' and 'k', press q to quit:"
 	m := menu.NewMenu(bufio.NewReader(os.Stdin), prompt, menuOptions)
 	m.Render()
-    command := "cd ~/Documents && nvim"
+    command := "cd ~/Documents/learning/golang/neetcode_algs && nvim main.go"
     cmd := exec.Command("gnome-terminal","--", "bash", "-c", command)
     if err := cmd.Run(); err != nil{
         panic(err)
