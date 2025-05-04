@@ -1,9 +1,27 @@
 package logic
 
+import "fmt"
+
 type Schedule struct {
 	hour   int
 	minute int
 	second int
+}
+
+func NewSchedule(hour, minute, second int) (*Schedule, error) {
+	if hour > 23 || hour < 0 {
+		return nil, fmt.Errorf("schedule: 'hour' should be between 0 and 23, %d not in range", hour)
+	}
+
+	if minute > 59 || minute < 0 {
+		return nil, fmt.Errorf("schedule: 'minute' should be between 0 and 59, %d not in range", minute)
+	}
+
+	if second > 59 || second < 0 {
+		return nil, fmt.Errorf("schedule: 'second' should be between 0 and 59, %d not in range", second)
+	}
+
+	return &Schedule{hour, minute, second}, nil
 }
 
 type Task struct {
@@ -23,20 +41,20 @@ func NewTask(title, description string, schedule *Schedule, action *Action, task
 type TimePeriod int
 
 const (
-    OneTime TimePeriod = iota
-    Daily
-    Weekly
-    BiWeekly
-    Monthly
+	OneTime TimePeriod = iota
+	Daily
+	Weekly
+	BiWeekly
+	Monthly
 )
 
 type TaskList struct {
-    title string
-	location string
-    periodicity TimePeriod 
-	tasks    *[]*Task
+	title       string
+	location    string
+	periodicity TimePeriod
+	tasks       *[]*Task
 }
 
-func NewTaskList(title, location string, periodicity TimePeriod, tasks *[]*Task) *TaskList{
-    return &TaskList{title, location, periodicity, tasks}
+func NewTaskList(title, location string, periodicity TimePeriod, tasks *[]*Task) *TaskList {
+	return &TaskList{title, location, periodicity, tasks}
 }

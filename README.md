@@ -21,9 +21,35 @@ you can add breaks to it to be set at a certain time.
 [ ] Avoid chatgpt and AI in general.
 
 
-First Stage
+## First Stage
 
 Getting to know ansi and familiarization with the golang's term package,
 we are gonna create an application that is both interactive and commandable.
 
 First I need sort of ansi handlers, some for cursor control, text enhancement and coloring.
+
+## Second Stage
+
+We need a way to create the resources, the idea would be to have some sort of
+interface and methods that render a form of the given resource. Maybe an example like this
+would do:
+
+Creating a *Resource Name* set *field name*:
+
+---------text----------
+|                     |
+-----------------------
+
+---------time----------
+|      00:00:00       |
+-----------------------
+
+---------path----------
+| /opt/app/main.go    |
+-----------------------
+
+This idea isn't that mature but its clear that we need some sort of form handling.
+Maybe we could have a couple of predefined form fields and have a way to create custom
+form fields.
+
+I could find how to do curves in the forms so that it looks a little bit better
