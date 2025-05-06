@@ -8,13 +8,13 @@ import (
 )
 
 type Menu struct {
-	console *bufio.Reader
+	console *bufio.ReadWriter
 	prompt  string
 	options []string
 	optMap  map[int]string
 }
 
-func NewMenu(console *bufio.Reader, prompt string, options []string) *Menu {
+func NewMenu(console *bufio.ReadWriter, prompt string, options []string) *Menu {
 	return &Menu{
 		console, prompt, options,
 		make(map[int]string, len(options)),
@@ -28,7 +28,8 @@ func moveCursorToLine(line int) {
 // Renders the menu in the command line
 func (m *Menu) Render() {
 	fmt.Print("\033[?25l")
-	fmt.Printf("\033[1E%s", m.prompt)
+	m.console.Write([]byte("\033[1E" + m.prompt))
+    m.console.Flush()
 	locations := []int{}
 	for _, op := range m.options {
 		fmt.Printf("\033[1E  %s", op)

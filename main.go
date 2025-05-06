@@ -27,7 +27,7 @@ func main() {
 
     // Create init and render the menu
 	prompt := "Move with 'j' and 'k', press q to quit:"
-	m := menu.NewMenu(bufio.NewReader(os.Stdin), prompt, menuOptions)
+	m := menu.NewMenu(bufio.NewReadWriter(bufio.NewReader(os.Stdin), bufio.NewWriter(os.Stdout)), prompt, menuOptions)
 	m.Render()
     command := "cd ~/Documents/learning/golang/neetcode_algs && nvim main.go"
     cmd := exec.Command("gnome-terminal","--", "bash", "-c", command)
