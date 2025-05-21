@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 
 	menu "github.com/MisaelCodes/code_learning_scheduler/components"
@@ -19,7 +20,11 @@ func main() {
 	}
 
     tl := logic.TaskList{}
-    tl.Fields()
+    r, err := tl.Fields()
+    if err != nil{
+        panic(err)
+    }
+    fmt.Println(r)
     
 	// Put the terminal in raw input mode
 	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))

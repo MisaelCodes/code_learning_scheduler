@@ -58,16 +58,16 @@ type TaskList struct {
 	tasks       *[]*Task
 }
 
-func NewTaskList(title, location string, periodicity TimePeriod, tasks *[]*Task) *TaskList {
-	return &TaskList{title, location, periodicity, tasks}
-}
-
+// Returns n x 2 matrix, where each subarray
+// has the name and the type of the field.
 func (tl TaskList) Fields() ([][2]string, error) {
 	rtl := reflect.TypeOf(tl)
-	fmt.Println(rtl.NumField())
-	for i := range rtl.NumField() {
-		fmt.Println(rtl.Field(i).Name)
+    n := rtl.NumField()
+    fields := make([][2]string, n)
+	for i := range n {
+        f := rtl.Field(i)
+		fields[i][0],fields[i][1] = f.Name , f.Type.Name()
+        
 	}
-	return nil, fmt.Errorf("error processing: %d", 1)
-
+	return fields, nil
 }
