@@ -62,9 +62,12 @@ func NewTaskList(title, location string, periodicity TimePeriod, tasks *[]*Task)
 	return &TaskList{title, location, periodicity, tasks}
 }
 
-func (tl TaskList) Fields() ([][2]string, error){
-    rtl := reflect.ValueOf(tl).Elem()
-    fmt.Println(rtl.NumField())
-    return nil, fmt.Errorf("error processing: %d",1)
+func (tl TaskList) Fields() ([][2]string, error) {
+	rtl := reflect.TypeOf(tl)
+	fmt.Println(rtl.NumField())
+	for i := range rtl.NumField() {
+		fmt.Println(rtl.Field(i).Name)
+	}
+	return nil, fmt.Errorf("error processing: %d", 1)
 
 }

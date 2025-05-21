@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"os"
-	"os/exec"
 
 	menu "github.com/MisaelCodes/code_learning_scheduler/components"
+	"github.com/MisaelCodes/code_learning_scheduler/logic"
 	"golang.org/x/term"
 )
 
@@ -18,6 +18,9 @@ func main() {
 		"Create List",
 	}
 
+    tl := logic.TaskList{}
+    tl.Fields()
+    
 	// Put the terminal in raw input mode
 	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
 	if err != nil {
@@ -29,10 +32,10 @@ func main() {
 	prompt := "Move with 'j' and 'k', press q to quit:"
 	m := menu.NewMenu(bufio.NewReadWriter(bufio.NewReader(os.Stdin), bufio.NewWriter(os.Stdout)), prompt, menuOptions)
 	m.Render()
-    command := "cd ~/Documents/learning/golang/neetcode_algs && nvim main.go"
-    cmd := exec.Command("gnome-terminal","--", "bash", "-c", command)
-    if err := cmd.Run(); err != nil{
-        panic(err)
-    }
+    // command := "cd ~/Documents/learning/golang/neetcode_algs && nvim main.go"
+    // cmd := exec.Command("gnome-terminal","--", "bash", "-c", command)
+    // if err := cmd.Run(); err != nil{
+    //     panic(err)
+    // }
 
 }
