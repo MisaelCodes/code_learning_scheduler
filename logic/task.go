@@ -1,6 +1,9 @@
 package logic
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 type Schedule struct {
 	hour   int
@@ -57,4 +60,11 @@ type TaskList struct {
 
 func NewTaskList(title, location string, periodicity TimePeriod, tasks *[]*Task) *TaskList {
 	return &TaskList{title, location, periodicity, tasks}
+}
+
+func (tl TaskList) Fields() ([][2]string, error){
+    rtl := reflect.ValueOf(tl).Elem()
+    fmt.Println(rtl.NumField())
+    return nil, fmt.Errorf("error processing: %d",1)
+
 }
