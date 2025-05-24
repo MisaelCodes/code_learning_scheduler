@@ -16,12 +16,12 @@ const (
 	RESET         = "[0m"
 )
 
-// Manages the terminal emulator through ansi codes.
+// Manages the terminal emulator through ansi escape codes.
 type AnsiManager struct {
 	c *bufio.ReadWriter
 }
 
-func (a *AnsiManager) write(code string){
+func (a *AnsiManager) write(code string) {
 	a.c.Write([]byte(code))
 	a.c.Flush()
 }
@@ -46,8 +46,8 @@ func (a *AnsiManager) SetForegroundColor(color int) error {
 // returns the current cursor location in terms of
 // a line and a column
 func (a *AnsiManager) GetCurrentLine() (int, int) {
-    code := fmt.Sprintf("%s%s",ESC,LOCATE_CURSOR)
-    a.write(code)
+	code := fmt.Sprintf("%s%s", ESC, LOCATE_CURSOR)
+	a.write(code)
 	v := ""
 	s := ""
 	p := make([]byte, 1)
@@ -60,44 +60,45 @@ func (a *AnsiManager) GetCurrentLine() (int, int) {
 	rp := regexp.MustCompile(`(\d{1,2})`)
 	mp := rp.FindStringSubmatch(v)
 	l, _ := strconv.Atoi(mp[0])
-    c, _ := strconv.Atoi(mp[1])
+	c, _ := strconv.Atoi(mp[1])
 
-	return l,c
+	return l, c
 }
 
 // restores the formatting when its called
-func (a *AnsiManager) ClearFormatting(){
-    a.write(fmt.Sprintf("%s%s", ESC, RESET))
+func (a *AnsiManager) ClearFormatting() {
+	a.write(fmt.Sprintf("%s%s", ESC, RESET))
 }
 
 // writes text on a new line
-func (a *AnsiManager) WriteText(t string){
-    a.write(fmt.Sprintf("%s%s%s",ESC,NEXT_LINE,t))
+func (a *AnsiManager) WriteText(t string) {
+	a.write(fmt.Sprintf("%s%s%s", ESC, NEXT_LINE, t))
 }
 
 // writes text at the beginning of a given line
-func (a *AnsiManager) WriteTextOn(t string, line int){
-    a.MoveCursor(line)
-    a.write(t)
+func (a *AnsiManager) WriteTextOn(t string, line int) {
+	a.MoveCursor(line)
+	a.write(t)
 }
 
 // writes text with the given color and resets
 // the formating back
-func (a *AnsiManager) WriteTextColored(t string, c int){
+func (a *AnsiManager) WriteTextColored(t string, c int) {
 	code := fmt.Sprintf("%s[38;5;%dm%s", ESC, c, t)
-    a.write(code)
+	a.write(code)
 }
 
 // writes text with a given 256 color in a given line
-func (a *AnsiManager) WriteTextColoredOn(t string, c,l int){
-    a.MoveCursor(l)
+func (a *AnsiManager) WriteTextColoredOn(t string, c, l int) {
+	a.MoveCursor(l)
 	code := fmt.Sprintf("%s[38;5;%dm%s", ESC, c, t)
-    a.write(code)
+	a.write(code)
+	a.ClearFormatting()
 }
 
 // removes i characters at line l, from column c
 // the cursor remains in its current position
-func (a *AnsiManager) RemoveText(l,c,i int){
-    code := fmt.Sprintf("ESC[%d;%d;%dH",l,c,i)
-    a.write(code)
+func (a *AnsiManager) RemoveText(l, c, i int) {
+	code := fmt.Sprintf("ESC[%d;%d;%dH", l, c, i)
+	a.write(code)
 }
