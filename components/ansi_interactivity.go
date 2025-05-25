@@ -26,10 +26,26 @@ func (a *AnsiManager) write(code string) {
 	a.c.Flush()
 }
 
+func (a *AnsiManager) read(p []byte){
+    a.c.Read(p)
+}
+
 // moves cursor to the line in position l
 func (a *AnsiManager) MoveCursor(l int) {
 	code := fmt.Sprintf("%s[%d;0H", ESC, l)
 	a.write(code)
+}
+
+// hides the cursor in the terminal emulator
+func (a *AnsiManager) HideCursor(){
+    code := fmt.Sprintf("%s%s", ESC, HIDE_CURSOR)
+    a.write(code)
+}
+
+// shows the cursor in the terminal emulator
+func (a *AnsiManager) ShowCursor(){
+    code := fmt.Sprintf("%s%s", ESC, SHOW_CURSOR)
+    a.write(code)
 }
 
 // sets the color of the character's from that point on
